@@ -3,6 +3,7 @@ const cors = require('cors');
 const connection = require('./configurations/configDB');
 const categorie = require('./routes/CategorieRoutes');
 const produit = require('./routes/ProduitRoutes');
+const authentication = require('./routes/UserRoutes');
 const user = require('./routes/AuthenticationRoutes');
 const commande = require('./routes/CommandeRoutes');
 let app = express();
@@ -19,6 +20,7 @@ app.use(user);
 app.use(categorie);
 app.use(produit);
 app.use(commande);
+app.use(authentication);
 
 app.get("/", (req, res) => {
     res.send("connected successfully !!")

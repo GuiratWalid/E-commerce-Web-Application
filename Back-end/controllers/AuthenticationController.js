@@ -1,4 +1,4 @@
-const UserModel = require('../models/AuthenticationModel');
+const UserModel = require('../models/UserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
@@ -13,8 +13,7 @@ const authenticationController = {
             lastName,
             email,
             password,
-            role,
-            cart
+            role
         } = req.body;
         const userExists = await UserModel.findOne({ email });
         if (!(email && password && firstName && lastName)) {
@@ -36,8 +35,7 @@ const authenticationController = {
                 lastName,
                 email: email.toLowerCase(),
                 password: passwordHash,
-                role,
-                cart
+                role
             });
             try {
                 await user.save();

@@ -23,11 +23,8 @@ const UserSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        default: "User"
-    },
-    cart: {
-        type: Array,
-        default: []
+        default: "moderateur",
+        enum: ['admin', 'moderateur']
     }
 }, {
     timestamps: true,
