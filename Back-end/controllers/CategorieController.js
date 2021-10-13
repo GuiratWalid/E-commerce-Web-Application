@@ -25,31 +25,44 @@ const CategorieController = {
 
     addCategorie: async (req, res) => {
         const name = req.body.name;
-        try {
-            const categorie = new CategorieModel({
-                name: name
-            });
-            await categorie.save();
-            res.json(categorie);
-            console.log('Categorie added successfully !!! ');
-        } catch (err) {
-            res.status(500).json({ message: 'Server Error' });
-            console.log(err);
+        if (!name) {
+            res.status(500).send({ message: 'Name is required' });
+            console.log('Name is required')
+        }
+        else {
+            try {
+
+                const categorie = new CategorieModel({
+                    name: name
+                });
+                await categorie.save();
+                res.json(categorie);
+                console.log('Categorie added successfully !!! ');
+            } catch (err) {
+                res.status(500).json({ message: 'Server Error' });
+                console.log(err);
+            }
         }
     },
 
     updateCategorie: async (req, res) => {
-        const id = req.params.id;
-        const newCategorie = {
-            name: req.body.name
-        };
-        try {
-            const categorie = await CategorieModel.findByIdAndUpdate(id, newCategorie);
-            res.json(newCategorie);
-            console.log('Categorie updated successfully !!! ');
-        } catch (err) {
-            res.status(400).json({ message: 'Error: ' + err });
-            console.log(err);
+        const name = req.body.name;
+        if (!name) {
+            res.status(400).send({ message: 'Name is required' });
+            console.log('Name is required')
+        }
+        else {
+            const newCategorie = {
+                name: req.body.name
+            };
+            try {
+                const categorie = await CategorieModel.findByIdAndUpdate(id, newCategorie);
+                res.json(newCategorie);
+                console.log('Categorie updated successfully !!! ');
+            } catch (err) {
+                res.status(400).json({ message: 'Error: ' + err });
+                console.log(err);
+            }
         }
     },
 

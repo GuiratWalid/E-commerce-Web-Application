@@ -66,15 +66,15 @@ const UserController = {
                 console.log('FirstName, lastName, email and password are required')
             }
             else if (password.length < 6) {
-                res.json({ message: 'Password should contain at least 6 Characters !!!' });
+                res.status(500).json({ message: 'Password should contain at least 6 Characters !!!' });
                 console.log('Password should contain at least 6 Characters !!!');
             }
             else if (userExists) {
-                res.json({ message: 'Email is already used !!!' });
+                res.status(500).json({ message: 'Email is already used !!!' });
                 console.log('Email is already used !!! ');
             }
             else if (role !== 'admin' && role !== 'moderateur') {
-                res.json({ message: 'Role should be admin or moderateur !!!' });
+                res.status(500).json({ message: 'Role should be admin or moderateur !!!' });
                 console.log('Role should be admin or moderateur !!!');
             }
             else {
@@ -117,11 +117,11 @@ const UserController = {
                 role
             } = req.body;
             if (!password || password.length < 6) {
-                res.json({ message: 'Password should contain at least 6 Characters !!!' });
+                res.status(400).json({ message: 'Password should contain at least 6 Characters !!!' });
                 console.log('Password should contain at least 6 Characters !!!');
             }
             else if (role !== 'admin' && role !== 'moderateur') {
-                res.json({ message: 'Role should be admin or moderateur !!!' });
+                res.status(400).json({ message: 'Role should be admin or moderateur !!!' });
                 console.log('Role should be admin or moderateur !!!');
             }
             else {

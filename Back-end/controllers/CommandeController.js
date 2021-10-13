@@ -18,7 +18,27 @@ const CommandeController = {
             const commande = await CommandeModel.findById(id);
             res.json(commande);
         } catch (err) {
+            console.log(err);
             res.send(400).send({ message: 'Server Error' });
+        }
+    },
+
+    getCommandeTraite: async (req, res) => {
+        let traité;
+        if (req.params.traite === "false")
+            traité = false;
+        else if (req.params.traite === "true")
+            traité = true;
+        else {
+            res.status(400).send({ message: 'Params should be true or false' });
+            console.log(err);
+            return;
+        }
+        try {
+            const commande = await CommandeModel.find({ traité });
+            res.json(commande);
+        } catch (err) {
+            res.status(400).send({ message: 'Server Error' });
             console.log(err);
         }
     },
@@ -29,7 +49,43 @@ const CommandeController = {
             produits,
             traité
         } = req.body;
-        console.log(client);
+        if (!(client && produits && traité !== undefined)) {
+            res.status(500).send({ message: 'Client, produits and traité are required' });
+            console.log('Client, produits and traité are required');
+            return;
+        }
+        const {
+            firstName,
+            lastName,
+            telephone,
+            email,
+            adresse
+        } = client;
+        if (!(firstName && lastName && telephone && email && adresse)) {
+            res.status(500).send({ message: 'FirstName, lastName, telephone, email and adresse are required' });
+            console.log('FirstName, lastName, telephone, email and adresse are required');
+            return;
+        }
+        const {
+            rue,
+            ville
+        } = adresse;
+        if (!(rue && ville)) {
+            res.status(500).send({ message: 'Rue and ville are required' });
+            console.log('Rue and ville are required');
+            return;
+        }
+        for (let item of produits) {
+            const {
+                id,
+                quantity,
+                name
+            } = item;
+            if (!(id && quantity && name)) {
+                console.log('Id, name and quantity are required');
+                return res.status(500).send({ message: 'Id, name and quantity are required' });
+            }
+        }
         try {
             const commande = new CommandeModel({
                 client,
@@ -52,12 +108,50 @@ const CommandeController = {
             produits,
             traité
         } = req.body;
-        const newCommande = {
-            client,
-            produits,
-            traité
+        if (!(client && produits && traité !== undefined)) {
+            res.status(400).send({ message: 'Client, produits and traité are required' });
+            console.log('Client, produits and traité are required');
+            return;
+        }
+        const {
+            firstName,
+            lastName,
+            telephone,
+            email,
+            adresse
+        } = client;
+        if (!(firstName && lastName && telephone && email && adresse)) {
+            res.status(400).send({ message: 'FirstName, lastName, telephone, email and adresse are required' });
+            console.log('FirstName, lastName, telephone, email and adresse are required');
+            return;
+        }
+        const {
+            rue,
+            ville
+        } = adresse;
+        if (!(rue && ville)) {
+            res.status(400).send({ message: 'Rue and ville are required' });
+            console.log('Rue and ville are required');
+            return;
+        }
+        for (let item of produits) {
+            const {
+                id,
+                quantity,
+                name
+            } = item;
+            if (!(id && quantity && name)) {
+                res.status(400).send({ message: 'Id, name and quantity are required' });
+                console.log('Id, name and quantity are required');
+                return;
+            }
         };
         try {
+            const newCommande = {
+                client,
+                produits,
+                traité
+            };
             const commande = await CommandeModel.findByIdAndUpdate(id, newCommande);
             res.json(newCommande);
             console.log('Commande updated successfully !!! ');

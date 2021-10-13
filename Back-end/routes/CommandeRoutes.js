@@ -8,6 +8,8 @@ router.get('/commande', commandeController.getAllCommande);
 
 router.get('/commande/:id', commandeController.getCommande);
 
+router.get('/commandeTraite/:traite', commandeController.getCommandeTraite);
+
 router.post('/commande', commandeController.addCommande);
 
 router.put('/commande/:id', commandeController.updateCommande);

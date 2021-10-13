@@ -45,6 +45,11 @@ const ProduitController = {
             categorie,
             price
         } = req.body;
+        if (!(name && size && details && categorie && price)) {
+            res.status(500).send({ message: 'Name, size, details, categorie and price are required' });
+            console.log('Name, size, details, categorie and price are required');
+            return;
+        }
         const image = req.file.path;
         const produit = new ProduitModel({
             name,
@@ -66,14 +71,26 @@ const ProduitController = {
 
     updateProduit: async (req, res) => {
         const id = req.params.id;
+        const {
+            name,
+            size,
+            details,
+            categorie,
+            price
+        } = req.body;
+        if (!(name && size && details && categorie && price)) {
+            res.status(400).send({ message: 'Name, size, details, categorie and price are required' });
+            console.log('Name, size, details, categorie and price are required');
+            return;
+        }
+        const image = req.file.path;
         const newProduit = {
-            name: req.body.name,
-            size: req.body.size,
-            image: req.body.image,
-            details: req.body.details,
-            categorie: req.body.categorie,
-            price: req.body.price,
-            image: req.file.path
+            name,
+            image,
+            size,
+            details,
+            categorie,
+            price
         };
         try {
             const produit = await ProduitModel.findByIdAndUpdate(id, newProduit);
