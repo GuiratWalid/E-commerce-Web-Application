@@ -14,7 +14,7 @@ router.post('/commande', commandeController.addCommande);
 
 router.put('/commande/:id', commandeController.updateCommande);
 
-router.delete('/commande', commandeController.deleteAllCommande);
+router.delete('/commande', authentication, commandeController.deleteAllCommande);
 
 router.delete('/commande/:id', authentication, commandeController.deleteCommande);
 

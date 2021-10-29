@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'Lemonada';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Lemonada'), url('Fonts/Lemonada/Lemonada-VariableFont_wght.ttf') format('ttf');
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +19,14 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.menu{
+    font-family: 'Lemonada', cursive;
+}
+.title{
+  font-family: 'Lemonada', cursive;
+  color:#c0115a;
+  font-weight: 700;
+  font-size: 20px;
 }

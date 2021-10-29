@@ -1,24 +1,44 @@
+/*import { Provider } from 'react-redux';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
-import { useState } from 'react';
-import LoadingButton from '@mui/lab/LoadingButton';
-import HomeIcon from '@mui/icons-material/Home';
 
+import AdminPage from './Pages/Admin/AdminPage';
+import ClientPage from './Pages/Client/ClientPage';
+
+import store from './Data/Store';
+import Register from './Pages/Admin/Register';
 
 function App() {
-  const [count, setCount] = useState(0);
+  <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ClientPage} />
+          <Route path="/admin/*">
+            <AdminPage />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </BrowserRouter>
+  </Provider>
   return (
-    <div className="App">
-      <LoadingButton
-        onClick={() => setCount(oldCount => oldCount + 2)}
-        endIcon={<HomeIcon />}
-        loadingPosition="end"
-        variant="contained"
-      >
-        +1
-      </LoadingButton>
-      <h1>La valeur de compteur est : {count}</h1>
-    </div>
+    <>
+      <Register />
+    </>
   );
-}
+}*/
+
+import React from 'react';
+import store from './Data/Store';
+import { Provider } from 'react-redux';
+import Test from './Test';
+
+const App = () => {
+
+  return (
+    <Provider store={store}>
+      <Test />
+    </Provider>
+  );
+};
 
 export default App;

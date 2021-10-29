@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap');
+
+@font-face {
+    font-family: 'Lemonada';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Lemonada'), url('../../Fonts/Lemonada/Lemonada-VariableFont_wght.ttf') format('ttf');
+  }
+
+.Part1{
+    position: absolute;
+    width:100%;
+    height: 600px;
+    background-image:linear-gradient(rgba(189, 251, 131, 0.9),rgba(15, 34, 2, 0.5)), url('../../Images/oula.jpg');
+    background-position: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px;
+    padding: 0px;
+}
+
+.Title{
+    font-family: 'Lemonada', cursive;
+    font-size: 72px;
+    text-align: center;
+    font-weight: 900;
+    color: '#00ff00';
+}
+
+.TitleArabe{
+    display: block;
+    font-family:'Lemonada', cursive;
+}

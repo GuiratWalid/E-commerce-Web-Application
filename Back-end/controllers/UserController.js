@@ -134,7 +134,8 @@ const UserController = {
                 };
                 try {
                     await UserModel.findByIdAndUpdate(id, newUser);
-                    res.json(newUser);
+                    const user = await UserModel.findById(id);
+                    res.json(user);
                     console.log('User updated successfully !!! ');
                 } catch (err) {
                     res.status(400).json({ message: 'Error: ' + err });

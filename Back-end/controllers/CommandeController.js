@@ -152,8 +152,9 @@ const CommandeController = {
                 produits,
                 traité
             };
-            const commande = await CommandeModel.findByIdAndUpdate(id, newCommande);
-            res.json(newCommande);
+            await CommandeModel.findByIdAndUpdate(id, newCommande);
+            const commande = await CommandeModel.findById(id);
+            res.json(commande);
             console.log('Commande updated successfully !!! ');
         } catch (err) {
             res.status(400).json({ message: 'Error: ' + err });

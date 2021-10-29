@@ -47,6 +47,7 @@ const CategorieController = {
 
     updateCategorie: async (req, res) => {
         const name = req.body.name;
+        const id = req.params.id;
         if (!name) {
             res.status(400).send({ message: 'Name is required' });
             console.log('Name is required')
@@ -56,8 +57,9 @@ const CategorieController = {
                 name: req.body.name
             };
             try {
-                const categorie = await CategorieModel.findByIdAndUpdate(id, newCategorie);
-                res.json(newCategorie);
+                await CategorieModel.findByIdAndUpdate(id, newCategorie);
+                const categorie = await CategorieModel.findById(id);
+                res.json(categorie);
                 console.log('Categorie updated successfully !!! ');
             } catch (err) {
                 res.status(400).json({ message: 'Error: ' + err });

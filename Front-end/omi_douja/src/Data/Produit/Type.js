@@ -1,0 +1,15 @@
+export const ADD_PRODUIT = 'ADD_PRODUIT';
+
+export const DELETE_ALL_PRODUITS = 'DELETE_ALL_PRODUITS';
+
+export const DELETE_PRODUIT = 'DELETE_PRODUIT';
+
+export const GET_ALL_PRODUITS = 'GET_ALL_PRODUITS';
+
+export const GET_PRODUIT = 'GET_PRODUIT';
+
+export const UPDTAE_PRODUIT = 'UPDTAE_PRODUIT';
+
+export const API_ERROR = 'API_ERROR';
+
+export const SEARCH_BY_NAME = 'SEARCH_BY_NAME';

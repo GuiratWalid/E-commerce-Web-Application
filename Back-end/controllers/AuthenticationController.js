@@ -2,6 +2,7 @@ const UserModel = require('../models/UserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
 
 dotenv.config({ path: '.env' });
 
@@ -63,7 +64,7 @@ const authenticationController = {
             }
             else if (userExists && (await bcrypt.compare(password, userExists.password))) {
                 const accessToken = createAccessToken({ id: userExists._id });
-                res.json({ token: accessToken });
+                res.json({ token: accessToken, role: userExists.role });
                 console.log("Token : " + accessToken);
             }
             else {
@@ -74,6 +75,54 @@ const authenticationController = {
             res.status(500).json({ message: 'Server Error' });
             console.log(err);
         }
+    },
+
+    forgotPassword: async (req, res) => {
+
+        const email = req.body.email;
+        const userExists = await UserModel.findOne({ email });
+
+        if (!(email)) {
+            res.status(400).send({ message: 'Email is required' });
+            console.log('Email is required');
+        }
+        else if (!userExists) {
+            res.json({ message: 'Email not found !!!' });
+            console.log('Email not found !!! ');
+        }
+        else {
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'guiratguirat123@gmail.com',
+                    pass: ''
+                }
+            });
+
+            const mailOptions = {
+                from: 'guiratguirat123@gmail.com',
+                to: email,
+                subject: 'Forgot Password !! | Omi_Douja',
+                html: `
+                        <h1 style="text-align:center;color:Blue;">Omi_Douja</h1>
+                        <h4 style="text-align:center;color:Blue;">Forgot Password</h4>
+                        <hr/>
+                        <br/><br/><br/>
+                        <p>Your password is: <strong> ${userExists.password} </strong> <p>
+                `
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log(error);
+                    res.send(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                    res.send({ message: "Email sended successfully !!!" });
+                }
+            });
+        }
     }
 
 };
@@ -83,7 +132,7 @@ const createAccessToken = (user) => {
         user,
         process.env.ACCESS_TOKEN_SECRET,
         {
-            expiresIn: '2h'
+            expiresIn: '24h'
         }
     );
 }

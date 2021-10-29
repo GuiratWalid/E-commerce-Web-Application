@@ -93,10 +93,11 @@ const ProduitController = {
             price
         };
         try {
-            const produit = await ProduitModel.findByIdAndUpdate(id, newProduit);
+            await ProduitModel.findByIdAndUpdate(id, newProduit);
+            const produit = await ProduitModel.findById(id);
             if (produit)
                 fs.unlinkSync(path.join('images', produit.image.substring(6)));
-            res.json(newProduit);
+            res.json(produit);
             console.log('Produit updated successfully !!! ');
         } catch (err) {
             res.status(400).json({ message: 'Error: ' + err });
